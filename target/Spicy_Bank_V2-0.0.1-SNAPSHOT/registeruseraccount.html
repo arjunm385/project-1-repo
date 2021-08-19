@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="Description" content="Enter your description here" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="style/registeruser.css" />
+</head>
+<body>
+    <header>
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="homepage.html">
+          <img src="images/102-1020368_transparent-chili-pepper-clipart-chili-pepper-emoji-transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          SpicyBank
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="about.html">About us</a>
+                    <span class="sr-only"></span></a>
+                </li>
+                
+                <li class="nav-item active">
+                    <a class="nav-link" href="contact.html">Contact (sysadmin@spicybank.com)<span class="sr-only"></span></a>
+                </li>                   
+            </ul>
+        </div>
+
+    </nav>
+      </header>
+
+      <form  style="border:1px solid #ccc" id="f" method="POST">
+        <div class="container">
+          <h1>Create Account</h1>
+          <p>Please Enter Below .</p>
+          <hr>
+  
+          <label for="name"><b>Name</b></label><br>
+          <input type="text" placeholder="Enter your Full Name here." name="name" id="name" required><br>
+  
+          <label for="pan"><b>PAN number</b></label><br>
+          <input type="text" placeholder="Enter PAN Number here." name="pan" id="pan" required><br>
+
+          <label for="aadhar"><b>Aadhar Number</b></label><br>
+          <input type="text" placeholder="Enter your Aadhar Number" name="aadhar" id="aadhar" required><br>
+
+          <label for="city"><b>City</b></label><br>
+          <input type="text" placeholder="Enter your city name" name="city" id="city" required><br>
+
+          <label for="state"><b>State</b></label><br>
+          <input type="text" placeholder="Enter your State" name="state" id="state" required><br>
+
+          <label for="pin"><b>PIN Code</b></label><br>
+          <input type="text" placeholder="Enter your PIN Code" name="pin" id="pin" required><br>
+
+          <label for="bal"><b>Opening Balance</b></label><br>
+          <input type="text" placeholder="Opening Amount" name="bal" id="bal" required><br>
+
+          <div>
+            <button type="submit" name="register" id="b1" class="signupbtn">Create</button><br><br>
+            <button type="button" name="cancel" id="b2" class="cancelbtn">Cancel</button>
+  
+          </div>
+        </div>
+      </form>
+      <p>&nbsp;&nbsp;&nbsp; &#8594; to view your info <a href="infopage.html" style="color:dodgerblue">click here</a>.</p>
+      <p>&nbsp;&nbsp;&nbsp; &#8594; for sign in <a href="loginuser.html" style="color:dodgerblue">click here</a>.</p>
+      <script>
+
+        b1.onclick=()=>{
+
+          if(!document.getElementById('name').value || !document.getElementById('pan').value || !document.getElementById('aadhar').value || !document.getElementById('city').value || !document.getElementById('state').value || !document.getElementById('pin').value || !document.getElementById('bal').value)
+      {
+        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+      }
+
+      else{
+            let url="http://localhost:8080/Spicy_Bank_V2/createaccount";
+            fetch(url,
+            {
+                method:'POST',
+                headers :{
+                    'Content-type':'application/json;charset=UTF-8',
+                }, 
+                body:JSON.stringify({
+                    account: 10,
+                    name: document.getElementById("name").value,
+                    userid: 10,
+                    pan: document.getElementById("pan").value,
+                    aadhar: document.getElementById("aadhar").value,
+                    city: document.getElementById("city").value,
+                    state: document.getElementById("state").value,
+                    status: "false",
+                    pincode: document.getElementById("pin").value,
+                    balance: document.getElementById("bal").value
+                })              
+            })
+            .then(function(data){
+    console.log(data)
+  })
+  .catch((error)=>{
+    console.error(error);
+  });
+
+  alert("Voila! Account Created");
+  location.href="infopage.html";
+          }
+        } 
+
+        b2.onclick=()=>{
+          alert("youre going to main page...");
+          location.href="homepage.html";
+        }
+        b2.onclick=()=>{
+      alert("you will be redirected to Home Page");
+      location.href="homepage.html";
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

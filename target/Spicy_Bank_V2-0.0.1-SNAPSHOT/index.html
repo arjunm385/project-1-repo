@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="">
+                <img src="images/102-1020368_transparent-chili-pepper-clipart-chili-pepper-emoji-transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                SpicyBank
+              </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="http://localhost:8080/Spicy_Bank_V2/Logout">Logout</a>
+                        <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="txn_detils.html">Transactions<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="deletecustomer.html">Delete<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Contact (sysadmin@spicybank.com)<span class="sr-only"></span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">Spicy Bank Employee Services :)</h1><br><br>
+        <p class="lead">You can search with below filters or just select Gett all User details</p>
+        <hr class="my-4">
+        <div class="container">
+            <form action="customerdetails" method="GET" id="myform">
+
+
+                <input type="text" id="criteria" name="criteria" placeholder="Enter Value" required><br><br>
+
+                <label for="b2">Search By Name</label>
+                <button id="b2" class="btn btn-primary" type="button" name="filter" value="name">Get
+                    Details</button> &nbsp;&nbsp;&nbsp;
+
+                <label for="b3">Search By UserID</label>
+                <button id="b3" class="btn btn-primary" type="button" name="filter" value="userid">Get
+                    Details</button>&nbsp;&nbsp;&nbsp;
+
+                <label for="b4">Search By Account No.</label>
+                <button id="b4" class="btn btn-primary" type="button" name="filter" value="account">Get
+                    Details</button>&nbsp;&nbsp;&nbsp;
+
+                <label for="b5">Search By PAN</label>
+                <button id="b5" class="btn btn-primary" type="button" name="filter" value="pan">Get
+                    Details</button><br><br>
+
+                <label for="b6">Search By State</label>
+                <button id="b6" class="btn btn-primary" type="button" name="filter" value="state">Get
+                    Details</button><br><br><br>
+
+            </form>
+
+
+            <label for="b1">Get All User Details from below button</label><br>
+                <button id="b1" class="btn btn-primary" type="button" name="filter" value="all">Get All Customers
+                    Details</button><br /><br>
+
+        </div>
+        <div id="results" class="container">
+        </div>
+        <br><br>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script>
+        b1.onclick = () => {
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=all";
+            fetch(url)
+                .then(response => response.json())
+                .then(res => {
+                    let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                    res.forEach(e => {
+                        data = data + "<tr><td>" + e.name + "</td>";
+                        data = data + "<td>" + e.account + "</td>";
+                        data = data + "<td>" + e.userid + "</td>";
+                        data = data + "<td>" + e.pan + "</td>";
+                        data = data + "<td>" + e.aadhar + "</td>";
+                        data = data + "<td>" + e.city + "</td>";
+                        data = data + "<td>" + e.state + "</td>";
+                        data = data + "<td>" + e.pincode + "</td>";
+                        data = data + "<td>" + e.balance + "</td></tr>";
+                    });
+                    data = data + "</tbody></table>"
+                    document.getElementById("results").innerHTML = data;
+                })
+        }
+
+        b2.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=name&criteria=" + document.getElementById("criteria").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(e => {
+                    // "<h3 class='text-center'>Results By Filter</h3>"
+                    if (e.userid == 0) {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                        // res.forEach(e => {
+                        data = data + "<tr><td>" + e.name + "</td>";
+                        data = data + "<td>" + e.account + "</td>";
+                        data = data + "<td>" + e.userid + "</td>";
+                        data = data + "<td>" + e.pan + "</td>";
+                        data = data + "<td>" + e.aadhar + "</td>";
+                        data = data + "<td>" + e.city + "</td>";
+                        data = data + "<td>" + e.state + "</td>";
+                        data = data + "<td>" + e.pincode + "</td>";
+                        data = data + "<td>" + e.balance + "</td></tr>";
+                        // });
+                        data = data + "</tbody></table>"
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+
+        b3.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=userid&criteria=" + document.getElementById("criteria").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(e => {
+                    if (e.userid == 0 || e.userid == '') {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                        data = data + "<tr><td>" + e.name + "</td>";
+                        data = data + "<td>" + e.account + "</td>";
+                        data = data + "<td>" + e.userid + "</td>";
+                        data = data + "<td>" + e.pan + "</td>";
+                        data = data + "<td>" + e.aadhar + "</td>";
+                        data = data + "<td>" + e.city + "</td>";
+                        data = data + "<td>" + e.state + "</td>";
+                        data = data + "<td>" + e.pincode + "</td>";
+                        data = data + "<td>" + e.balance + "</td></tr>";
+                        data = data + "</tbody></table>"
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+
+        b4.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=account&criteria=" + document.getElementById("criteria").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(e => {
+                    if (e.account == 0 || e.account == '') {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                        data = data + "<tr><td>" + e.name + "</td>";
+                        data = data + "<td>" + e.account + "</td>";
+                        data = data + "<td>" + e.userid + "</td>";
+                        data = data + "<td>" + e.pan + "</td>";
+                        data = data + "<td>" + e.aadhar + "</td>";
+                        data = data + "<td>" + e.city + "</td>";
+                        data = data + "<td>" + e.state + "</td>";
+                        data = data + "<td>" + e.pincode + "</td>";
+                        data = data + "<td>" + e.balance + "</td></tr>";
+                        data = data + "</tbody></table>"
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+
+        b5.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=pan&criteria=" + document.getElementById("criteria").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(e => {
+                    if (e.account == 0 || e.account == '') {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                        data = data + "<tr><td>" + e.name + "</td>";
+                        data = data + "<td>" + e.account + "</td>";
+                        data = data + "<td>" + e.userid + "</td>";
+                        data = data + "<td>" + e.pan + "</td>";
+                        data = data + "<td>" + e.aadhar + "</td>";
+                        data = data + "<td>" + e.city + "</td>";
+                        data = data + "<td>" + e.state + "</td>";
+                        data = data + "<td>" + e.pincode + "</td>";
+                        data = data + "<td>" + e.balance + "</td></tr>";
+                        data = data + "</tbody></table>"
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+
+        b6.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/customerdetails?filter=state&criteria=" + document.getElementById("criteria").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(res => {
+                    if (res.account == 0 || res.account == '') {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>NAME</th><th>ACCOUNT NUMBER</th><th>UserID</th><th>PAN</th><th>AADHAR</th><th>CITY</th><th>STATE</th><th>PINCODE</th><th>BALANCE</th></thead><tbody>"
+                        res.forEach(e => {
+                            data = data + "<tr><td>" + e.name + "</td>";
+                            data = data + "<td>" + e.account + "</td>";
+                            data = data + "<td>" + e.userid + "</td>";
+                            data = data + "<td>" + e.pan + "</td>";
+                            data = data + "<td>" + e.aadhar + "</td>";
+                            data = data + "<td>" + e.city + "</td>";
+                            data = data + "<td>" + e.state + "</td>";
+                            data = data + "<td>" + e.pincode + "</td>";
+                            data = data + "<td>" + e.balance + "</td></tr>";
+                            data = data + "</tbody></table>";
+                        });
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+    </script>
+
+<form action="servletname" method="POST">
+    <input type="text" name="uid" >
+    <button type="submit" id="b1"></button>
+</form>
+
+</body>
+
+</html>

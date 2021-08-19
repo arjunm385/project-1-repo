@@ -1,0 +1,36 @@
+.container{
+    padding: 16px;
+}
+#b1 {
+    align-items: center;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px;
+    border: none;
+    margin: 5px 50px 5px 0;
+    width: 25%;
+    opacity: 0.9;
+  }
+  #b2 {
+    align-items: center;
+    background-color: #255abb;
+    color: white;
+    padding: 14px;
+    border: none;
+    margin: 5px 50px 5px 0;
+    width: 25%;
+    opacity: 0.9;
+  }
+  #b1:hover {
+    opacity:1;
+  }
+  #b2:hover {
+    opacity:1;
+  }
+  
+label{
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+}
+

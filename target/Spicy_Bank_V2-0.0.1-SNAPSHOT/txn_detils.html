@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>transactions</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="">
+                <img src="images/102-1020368_transparent-chili-pepper-clipart-chili-pepper-emoji-transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                SpicyBank
+              </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="http://localhost:8080/Spicy_Bank_V2/Logout">Logout</a>
+                        <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Previous Menu<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Contact (sysadmin@spicybank.com)<span class="sr-only"></span></a>
+                    </li>
+
+                    
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+    <div class="jumbotron">
+        <h1 class="display-4">Spicy Bank Employee Services :)</h1>
+        <p class="lead">You are in the transactions Tab...please select from below</p>
+        <hr class="my-4">
+        <form action="txnresult" method="GET">
+            <input type="text" id="condition" name="condition" placeholder="Enter Account Number" required><br><br>
+
+            <label for="b2">Search By Account Number</label><br>
+            <button id="b2" class="btn btn-primary" type="button" name="filter"
+                value="account">Details</button><br /><br><br>
+        </form>
+
+
+        <label for="b1">Get All Transaction Logs</label><br>
+        <button id="b1" class="btn btn-primary" type="button" name="filter" value="all">Get All Transaction
+            Details</button><br /><br>
+    </div>
+    <div id="results" class="container">
+    </div>
+    <br><br>
+    </div>
+
+    <script>
+        b1.onclick = () => {
+            let url = "http://localhost:8080/Spicy_Bank_V2/txnresult?filter=all";
+            fetch(url)
+                .then(response => response.json())
+                .then(res => {
+                    let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>Transaction ID</th><th>ACCOUNT NUMBER</th><th>Transaction Type</th><th>Amount</th></thead><tbody>"
+                    res.forEach(e => {
+                        data = data + "<tr><td>" + e.transactionid + "</td>";
+                        data = data + "<td>" + e.accountno + "</td>";
+                        data = data + "<td>" + e.transactiontype + "</td>";
+                        data = data + "<td>" + e.amt + "</td></tr>";
+                    });
+                    data = data + "</tbody></table>"
+                    document.getElementById("results").innerHTML = data;
+                })
+        }
+
+        b2.onclick = () => {
+
+            let url = "http://localhost:8080/Spicy_Bank_V2/txnresult?filter=account&&condition=" + document.getElementById("condition").value;
+            fetch(url)
+                .then(response => response.json())
+                .then(res => {
+                    if (res.account == 0 || res.account == '') {
+                        document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+                    }
+                    else {
+
+                        let data = "<table class='table table-striped table-bordered'> <thead class='thead-dark'> <tr><th>Transaction ID</th><th>ACCOUNT NUMBER</th><th>Transaction Type</th><th>Amount</th></thead><tbody>"
+                        res.forEach(e => {
+                            data = data + "<tr><td>" + e.transactionid + "</td>";
+                            data = data + "<td>" + e.accountno + "</td>";
+                            data = data + "<td>" + e.transactiontype + "</td>";
+                            data = data + "<td>" + e.amt + "</td></tr>";
+                        });
+                        data = data + "</tbody></table>"
+                        document.getElementById("results").innerHTML = data;
+                    }
+                })
+        }
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

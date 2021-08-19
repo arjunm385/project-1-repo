@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Deposit</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="">
+                <img src="images/102-1020368_transparent-chili-pepper-clipart-chili-pepper-emoji-transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                SpicyBank
+              </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="navbar-brand" href="http://localhost:8080/Spicy_Bank_V2/Logout">Logout</a>
+                        <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="useroperations.html">Previous Menu<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Contact (sysadmin@spicybank.com)<span class="sr-only"></span></a>
+                    </li>
+
+                    
+                </ul>
+            </div>
+
+        </nav>
+      </header>
+    <div class="jumbotron">
+        <h1 class="display-4">Transfer Tab</h1>
+        <p class="lead">You Can transfer Money From Your Account</p>
+        <hr class="my-4">
+        <p>Content</p>
+        <p>here you can perform the basic banking operations. if you find any dificulty then please free to contact.</p>
+    </div>
+    <div class="container">
+        <form action="transfer" method="GET">
+        <p>Enter Acount number (other person)</p>
+        <input type="number" id="account" name="account" placeholder="Enter Account Number" required><br><br>
+        <p>Enter Amount you want to transfer</p>
+        <input type="number" id="transfer" name="transfer" placeholder="Enter Amount Here" required><br><br>
+        <button id="b1" type="submit" class="btn btn-primary" value="get">Transfer Money</button>
+    </form>
+    </div>
+<div id="results" class="container">
+    
+</div>
+
+<script>
+    b1.onclick = () => {
+        if(!document.getElementById('account').value || !document.getElementById('transfer').value)
+        {
+            document.getElementById("results").innerHTML = "<h3>INVALID INPUT!!!!!!</h3>";
+            
+        }
+        else{
+        alert("deposit success...go check your balance");
+            location.href="useroperations.html";
+        }
+}
+
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>

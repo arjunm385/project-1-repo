@@ -1,0 +1,6 @@
+[main] 2021-07-30 17:07:03 WARN  com.spicybank.DAO.Impl.Spicybank_DAOImpl  - ERROR: null value in column "pass" violates not-null constraint
+  Detail: Failing row contains (10010, test, null, 301254875).
+[main] 2021-07-30 17:07:03 WARN  com.spicybank.service.Impl.User_DetailsImpl  - Internal error occured... Kindly conatct SYSADMIN........
+[main] 2021-07-30 17:54:30 WARN  com.spicybank.DAO.Impl.Spicybank_DAOImpl  - ERROR: null value in column "pass" violates not-null constraint
+  Detail: Failing row contains (10012, test, null, 301254875).
+[main] 2021-07-30 17:54:30 WARN  com.spicybank.service.Impl.User_DetailsImpl  - Internal error occured... Kindly conatct SYSADMIN........
